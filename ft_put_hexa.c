@@ -1,59 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uputnbr.c                                       :+:      :+:    :+:   */
+/*   ft_put_hexa.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 00:40:28 by marolive          #+#    #+#             */
-/*   Updated: 2022/07/07 00:47:48 by marolive         ###   ########.fr       */
+/*   Updated: 2022/07/13 23:59:50 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int get_num(int n)
+#include "libftprintf.h"
+
+int ft_put_hexa(unsigned int n, char c)
 {
-	int num;
+	int	len;
 
-	num = 1;
-	while (1)
+	len = 0;
+	if (n < 16)
 	{
-		n /= 16;
-		if (n == 0)
-			return (num);
-		num *= 16;
+		if (n < 10)
+			len += ft_putchar(n + '0');
+		else
+		{
+			if (c == 'x')
+				len += ft_putchar(n - 10 + 'a');
+			else
+				len += ft_putchar(n - 10 + 'A');
+		}
+		return (len);
 	}
-}
-
-static int count(int n)
-{
-	int res;
-
-	res = 0;
-	if (n < 0)
-		res++;
-	if (n == 0)
-		return (1);
-	while (n > 0)
+	else
 	{
-		n /= 16;
-		res++;
+		len += ft_put_hexa(n / 16, c);
+		len += ft_put_hexa(n % 16, c);
 	}
-	return (res)
-}
-int uputnbr(int n)
-{
-	int j;
-	int nu;
+	return (len);
 
-	nu = get_num(n);
-	while (1)
-	{
-		j = n / nu + '0';
-		ft_putchar(j);
-		n %= nu;
-		nu /= 16;
-		if (nu == 0)
-			break ;
-	}
 }
-

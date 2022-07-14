@@ -3,19 +3,19 @@ NAME		= libftprintf.a
 HEADER		= libftprintf.h
 
 SRCS		= ft_printf.c \
-		  		ft_putchar.c \
-		  		ft_putstr.c \
-		  		ft_uputnbr.c \
+		  		ft_pointer.c \
+		  		ft_printfunc.c \
 		  		ft_putnbr.c \
-		  		ft_strchr.c 
+		  		ft_putnbr_u.c \
+		  		ft_put_hexa.c 
 
-OBJS		= $(SRCS:.c=.0)
+OBJS		= $(SRCS:.c=.o)
 
 CC			= cc
 
 RM			= rm -f
 
-CFLGAS		= -Wall -Werror - Wextra
+CFLGAS		= -Wall -Werror -Wextra
 
 .c.0:
 			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)

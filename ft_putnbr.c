@@ -6,67 +6,33 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:21:53 by marolive          #+#    #+#             */
-/*   Updated: 2022/07/07 00:47:09 by marolive         ###   ########.fr       */
+/*   Updated: 2022/07/13 23:06:42 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static	int	get_magnitude(int n)
+int ft_putnbr(int n)
 {
-	int	mag;
-
-	mag = 1;
-	if (n < 0)
-		mag = -1;
-	while (1)
-	{
-		n /= 10;
-		if (n == 0)
-			return (mag);
-		mag *= 10;
-	}
-}
-
-static int count(int n)
-{
-	int res;
-
-	res = 0;
+	int len;
+	
+	len = 0;
 	if (n < 0)
 	{
-		res++;
-   		n = -n;
+		len += ft_putchar('-');
+		if (n == -2147483648)
+		{
+			len += ft_putchar('2');
+			n = -147483648;
+		}
+		n = -n;
 	}
-	if (n == 0)
-		return (1);
-	while (n > 0)
+	if (n < 10)
+		len += ft_putchar(n + '0');
+	else
 	{
-		n = n / 10;
-		res ++;
+		len += ft_putnbr(n / 10);
+		len += ft_putnbr(n % 10);
 	}
-	return (res);
+	return (len);
 }
-
-int	ft_putnbr(int n)
-{
-	int	j;
-	int	mag;
-	int res;
-
-	res = caunt(n);
-	mag = get_magnitude(n);
-	if (n < 0)
-		ft_putchar('-');
-	while (1)
-	{
-		j = n / mag + '0';
-		ft_putchar(j);
-		n %= mag;
-		mag /= 10;
-		if (mag == 0)
-			break ;
-	}
-	return (res);
-}
-
